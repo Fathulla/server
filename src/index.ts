@@ -45,7 +45,8 @@ sequelize
   .catch((err) => console.error("Database connection error:", err));
 
 //todo: may be should fix path to upload
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
+
 
 // Routes
 app.use("/api/events/private", privateEventRoutes);

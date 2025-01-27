@@ -6,7 +6,7 @@ import { KidsEvent } from "../../models/event-models/kidsEventModel";
 
 const router = Router();
 
-const uploadsPath = path.resolve(__dirname, "..", "..", 'uploads')
+// const uploadsPath = path.resolve(__dirname, "..", "..", 'uploads')
 
 // Create
 router.post(
@@ -40,7 +40,7 @@ router.post(
 
     try {
       // Формируем URL файла
-      const fileUrl = `${uploadsPath}/${file.filename}`;
+      const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
 
       // Создаем событие в базе данных
       const event = await KidsEvent.create({
@@ -106,7 +106,7 @@ router.put("/:id", upload.single("img"), async (req: Request, res: Response): Pr
       }
 
       // Формируем новый путь к изображению
-      const newImagePath = `${uploadsPath}/${file.filename}`;
+      const newImagePath = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
       body.img = newImagePath; // Обновляем путь к новому изображению в теле запроса
     }
 

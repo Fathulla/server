@@ -8,8 +8,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DB_HOST=localhost
-      - DB_PORT=5433
+      - DB_HOST=postgres
+      - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=password
       - DB_NAME=server_db
@@ -23,7 +23,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: server_db
     ports:
-      - "5433:5433"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

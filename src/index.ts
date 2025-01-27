@@ -17,7 +17,7 @@ dotenv.config();
 
 app.use(express.json());
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || "3000";
 
 // Database connection
 const sequelize = new Sequelize({
@@ -54,4 +54,4 @@ app.use("/api/events/kids", kidsEventRoutes);
 app.use("/api/book/private", bookPrivateEventRoutes);
 app.use("/api/book/kids", bookKidsEventRoutes);
 
-app.listen(PORT, () => console.log(`server started on port: ${PORT}`));
+app.listen(Number(PORT), '0.0.0.0', () => console.log(`server started on port: ${PORT}`));

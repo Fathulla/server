@@ -35,7 +35,7 @@ initBookPrivateEventModel(sequelize);
 initBookKidsEventModel(sequelize);
 
 sequelize
-  .sync({ force: false }) // force: true пересоздаёт таблицы, если они существуют
+  .sync({ force: true }) // force: true пересоздаёт таблицы, если они существуют
   .then(() => console.log("Models synchronized with the database"))
   .catch((err) => console.error("Error synchronizing models:", err));
 

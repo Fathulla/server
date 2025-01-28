@@ -25,23 +25,23 @@ export const initKidsEventModel = (sequelize: Sequelize) => {
         primaryKey: true,
       },
       event_title: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       event_subtitle: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       title: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       paragraph: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       motivation: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       cost: {
@@ -65,6 +65,7 @@ export const initKidsEventModel = (sequelize: Sequelize) => {
       sequelize,
       modelName: 'KidsEvent',
       tableName: 'kids_event',
+      timestamps: true
     }
   );
 };

@@ -10,11 +10,12 @@ import bookKidsEventRoutes from "./routes/book-events-routes/bookKidsEventRoutes
 import bookPrivateEventRoutes from "./routes/book-events-routes/bookPrivateEventRoutes";
 import kidsEventRoutes from "./routes/event-routes/kidsEventRoutes";
 import privateEventRoutes from "./routes/event-routes/privateEventRoutes";
+import cors from "cors";
 
 
 const app = express();
 dotenv.config();
-
+app.use(cors())
 app.use(express.json());
 
 const PORT = process.env.PORT || "3000";

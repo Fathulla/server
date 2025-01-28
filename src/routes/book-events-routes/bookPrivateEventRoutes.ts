@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { bookPrivateEventsSchema } from "../../utils/booking-validators/bookPrivateEventSchema";
 import { BookPrivateEvent } from "../../models/book-event-models/bookPrivateEventModel";
+import { bookPrivateEventsSchema } from "../../utils/booking-validators/bookPrivateEventSchema";
 
 const router = Router();
 

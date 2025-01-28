@@ -12,10 +12,15 @@ import kidsEventRoutes from "./routes/event-routes/kidsEventRoutes";
 import privateEventRoutes from "./routes/event-routes/privateEventRoutes";
 import cors from "cors";
 
-
 const app = express();
 dotenv.config();
-app.use(cors())
+app.use(
+  cors({
+    origin: "*", // Разрешаем все домены
+    methods: ["GET", "POST", "PUT", "DELETE"], // Разрешаем все методы
+    allowedHeaders: ["Content-Type", "Authorization"], // Разрешаем необходимые заголовки
+  })
+);
 app.use(express.json());
 
 const PORT = process.env.PORT || "3000";
@@ -48,11 +53,12 @@ sequelize
 //todo: may be should fix path to upload
 app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 
-
 // Routes
 app.use("/api/events/private", privateEventRoutes);
 app.use("/api/events/kids", kidsEventRoutes);
 app.use("/api/book/private", bookPrivateEventRoutes);
 app.use("/api/book/kids", bookKidsEventRoutes);
 
-app.listen(Number(PORT), '0.0.0.0', () => console.log(`server started on port: ${PORT}`));
+app.listen(Number(PORT), "0.0.0.0", () =>
+  console.log(`server started on port: ${PORT}`)
+);

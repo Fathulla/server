@@ -39,7 +39,9 @@ router.post(
 
     try {
       // Формируем URL файла
-      const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
+      // const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
+      const fileUrl = `https://${req.get('host')}/uploads/${file.filename}`;
+
 
       // Создаем событие в базе данных
       const event = await PrivateEvent.create({
@@ -104,7 +106,8 @@ router.put("/:id", upload.single("img"), async (req: Request, res: Response): Pr
         await fs.promises.unlink(oldImagePath);
       }
       // Формируем новый путь к изображению
-      const newImagePath = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
+      // const newImagePath = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
+      const newImagePath = `https://${req.get('host')}/uploads/${file.filename}`;
       body.img = newImagePath; // Обновляем путь к новому изображению в теле запроса
     }
 

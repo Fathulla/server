@@ -15,9 +15,6 @@ services:
       - DB_NAME=server_db
     depends_on:
       - postgres
-    volumes:
-      - .:/usr/src/app
-    command: ["npm", "run", "start"]
 
   postgres:
     image: postgres:15

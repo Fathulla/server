@@ -13,7 +13,7 @@ interface KidsEventAttributes {
   img: string;
 }
 
-interface KidsEventCreationAttributes extends Optional<KidsEventAttributes, 'id'> {}
+export interface KidsEventCreationAttributes extends Optional<KidsEventAttributes, 'id'> {}
 
 
 export class KidsEvent extends Model<KidsEventAttributes, KidsEventCreationAttributes> {

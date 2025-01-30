@@ -1,6 +1,25 @@
-import { DataTypes, Model, Sequelize } from 'sequelize';
+import { DataTypes, Model, Sequelize, Optional } from "sequelize";
 
-export class KidsEvent extends Model {
+interface PrivateEventAttributes {
+  id: number;
+  event_title: string;
+  event_subtitle: string;
+  title: string;
+  paragraph: string;
+  motivation: string;
+  cost: string;
+  date: Date;
+  time: Date;
+  img: string;
+}
+
+interface PrivateEventCreationAttributes
+  extends Optional<PrivateEventAttributes, "id"> {}
+
+export class PrivateEvent extends Model<
+  PrivateEventAttributes,
+  PrivateEventCreationAttributes
+> {
   public id!: number;
   public event_title!: string;
   public event_subtitle!: string;
@@ -8,16 +27,16 @@ export class KidsEvent extends Model {
   public paragraph!: string;
   public motivation!: string;
   public cost!: string;
-  public date!: string;
-  public time!: string;
+  public date!: Date;
+  public time!: Date;
   public img!: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-export const initKidsEventModel = (sequelize: Sequelize) => {
-  KidsEvent.init(
+export const initPrivateEventModel = (sequelize: Sequelize): void => {
+  PrivateEvent.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -49,11 +68,11 @@ export const initKidsEventModel = (sequelize: Sequelize) => {
         allowNull: false,
       },
       date: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATEONLY,
         allowNull: false,
       },
       time: {
-        type: DataTypes.STRING,
+        type: DataTypes.TIME,
         allowNull: false,
       },
       img: {
@@ -63,9 +82,9 @@ export const initKidsEventModel = (sequelize: Sequelize) => {
     },
     {
       sequelize,
-      modelName: 'KidsEvent',
-      tableName: 'kids_event',
-      timestamps: true
+      modelName: "PrivateEvent",
+      tableName: "private_event",
+      timestamps: true, // Указывает на наличие createdAt и updatedAt
     }
   );
 };

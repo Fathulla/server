@@ -1,20 +1,12 @@
 import { Router } from "express";
-import { bookPrivateEventsSchema } from "../../utils/booking-validators/bookPrivateEventSchema";
-import { BookPrivateEvent } from "../../models/book-event-models/bookPrivateEventModel";
+import { InquireKidsEvent } from "../../models/inquire/kids";
 
 const router = Router();
 
 router.post("/", async (req, res): Promise<any> => {
   try {
-    // Валидация данных с помощью Joi
-    const { error, value } = bookPrivateEventsSchema.validate(req.body);
-    if (error) {
-      res.status(400).json({ message: error.details[0].message });
-      return;
-    }
-
     // Создание записи
-    const newBooking = await BookPrivateEvent.create(value);
+    const newBooking = await InquireKidsEvent.create(req.body);
     res.status(201).json(newBooking);
   } catch (err) {
     console.error("Error creating booking:", err);
@@ -25,7 +17,7 @@ router.post("/", async (req, res): Promise<any> => {
 // Get all bookings
 router.get("/", async (req, res) => {
   try {
-    const bookings = await BookPrivateEvent.findAll();
+    const bookings = await InquireKidsEvent.findAll();
     res.status(200).json(bookings);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -35,7 +27,7 @@ router.get("/", async (req, res) => {
 // Get booking by ID
 router.get("/:id", async (req, res): Promise<any> => {
   try {
-    const booking = await BookPrivateEvent.findOne({
+    const booking = await InquireKidsEvent.findOne({
       where: { id: req.params.id },
     });
 
@@ -56,31 +48,23 @@ router.put("/:id", async (req, res): Promise<any> => {
     const { id } = req.params;
     const {
       firstName,
-      lastName,
       email,
       phoneNumber,
       eventDate,
-      companyName,
-      startTime,
-      endTime,
-      eventType,
       peopleNumber,
-      additionalInformation,
+      masterclass,
+      showType,
     } = req.body;
 
-    const updatedBooking = await BookPrivateEvent.update(
+    const updatedBooking = await InquireKidsEvent.update(
       {
         firstName,
-        lastName,
         email,
         phoneNumber,
         eventDate,
-        companyName,
-        startTime,
-        endTime,
-        eventType,
         peopleNumber,
-        additionalInformation,
+        masterclass,
+        showType,
       },
       {
         where: { id },
@@ -102,7 +86,7 @@ router.put("/:id", async (req, res): Promise<any> => {
 // Delete booking
 router.delete("/:id", async (req, res) => {
   try {
-    const deleted = await BookPrivateEvent.destroy({
+    const deleted = await InquireKidsEvent.destroy({
       where: { id: req.params.id },
     });
 

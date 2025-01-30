@@ -1,31 +1,30 @@
-version: '3.3'
-
 services:
-  app:
+  server_v1:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "5000:5000"
     environment:
-      - DB_HOST=postgres
+      - DB_HOST=database_v1
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=password
       - DB_NAME=postgres
     depends_on:
-      - postgres
+      - database_v1
 
-  postgres:
+  database_v1:
     image: postgres:15
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
 
 volumes:
   postgres_data:

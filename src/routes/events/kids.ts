@@ -2,11 +2,10 @@ import { Request, Response, Router } from "express";
 import fs from 'fs';
 import path from "path";
 import { upload } from "../../middlewares/upload";
-import { KidsEvent } from "../../models/event-models/kidsEventModel";
+import { KidsEvent } from "../../models/event/kids";
 
 const router = Router();
 
-// const uploadsPath = path.resolve(__dirname, "..", "..", 'uploads')
 
 // Create
 router.post(

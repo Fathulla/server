@@ -1,7 +1,6 @@
-import { DataTypes, Model, Sequelize, Optional } from 'sequelize';
+import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 
-// Типизация атрибутов модели
-interface PrivateEventAttributes {
+interface KidsEventAttributes {
   id: number;
   event_title: string;
   event_subtitle: string;
@@ -9,15 +8,15 @@ interface PrivateEventAttributes {
   paragraph: string;
   motivation: string;
   cost: string;
-  date: string;
-  time: string;
+  date: Date;
+  time: Date;
   img: string;
 }
 
-// Опциональные поля для создания новой записи
-interface PrivateEventCreationAttributes extends Optional<PrivateEventAttributes, 'id'> {}
+interface KidsEventCreationAttributes extends Optional<KidsEventAttributes, 'id'> {}
 
-export class PrivateEvent extends Model<PrivateEventAttributes, PrivateEventCreationAttributes> {
+
+export class KidsEvent extends Model<KidsEventAttributes, KidsEventCreationAttributes> {
   public id!: number;
   public event_title!: string;
   public event_subtitle!: string;
@@ -25,16 +24,16 @@ export class PrivateEvent extends Model<PrivateEventAttributes, PrivateEventCrea
   public paragraph!: string;
   public motivation!: string;
   public cost!: string;
-  public date!: string;
-  public time!: string;
+  public date!: Date;
+  public time!: Date;
   public img!: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-export const initPrivateEventModel = (sequelize: Sequelize): void => {
-  PrivateEvent.init(
+export const initKidsEventModel = (sequelize: Sequelize) => {
+  KidsEvent.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -66,11 +65,11 @@ export const initPrivateEventModel = (sequelize: Sequelize): void => {
         allowNull: false,
       },
       date: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATEONLY,
         allowNull: false,
       },
       time: {
-        type: DataTypes.STRING,
+        type: DataTypes.TIME,
         allowNull: false,
       },
       img: {
@@ -80,9 +79,9 @@ export const initPrivateEventModel = (sequelize: Sequelize): void => {
     },
     {
       sequelize,
-      modelName: 'PrivateEvent',
-      tableName: 'private_event',
-      timestamps: true, // Указывает на наличие createdAt и updatedAt
+      modelName: 'KidsEvent',
+      tableName: 'kids_event',
+      timestamps: true
     }
   );
 };

@@ -1,25 +1,46 @@
-import { DataTypes, Model, Sequelize } from 'sequelize';
+import { DataTypes, Model, Optional, Sequelize } from "sequelize";
 
-export class BookPrivateEvent extends Model {
+interface InquirePrivateEventAttributes {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  eventDate: Date;
+  companyName: string;
+  startTime: Date;
+  endTime: Date;
+  eventType: string;
+  peopleNumber: number;
+  additionalInformation?: string;
+}
+
+interface InquirePrivateEventCreationAttributes
+  extends Optional<InquirePrivateEventAttributes, "id"> {}
+
+export class InquirePrivateEvent extends Model<
+  InquirePrivateEventAttributes,
+  InquirePrivateEventCreationAttributes
+> {
   public id!: number;
   public firstName!: string;
   public lastName!: string;
   public email!: string;
   public phoneNumber!: string;
-  public eventDate!: string;
+  public eventDate!: Date;
   public companyName!: string;
-  public startTime!: string;
-  public endTime!: string;
+  public startTime!: Date;
+  public endTime!: Date;
   public eventType!: string;
   public peopleNumber!: number;
-  public additionalInformation?: string; // Поле опционально
+  public additionalInformation?: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-export const initBookPrivateEventModel = (sequelize: Sequelize) => {
-  BookPrivateEvent.init(
+export const initInquirePrivateEventModel = (sequelize: Sequelize) => {
+  InquirePrivateEvent.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -38,18 +59,15 @@ export const initBookPrivateEventModel = (sequelize: Sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          isEmail: true, // Встроенная проверка на корректный email
+          isEmail: true,
         },
       },
       phoneNumber: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          is: /^[+]?[\d\s-]{7,15}$/, // Пример проверки на номер телефона
-        },
       },
       eventDate: {
-        type: DataTypes.DATEONLY, // Используем DATEONLY для даты
+        type: DataTypes.DATEONLY,
         allowNull: false,
       },
       companyName: {
@@ -57,11 +75,11 @@ export const initBookPrivateEventModel = (sequelize: Sequelize) => {
         allowNull: false,
       },
       startTime: {
-        type: DataTypes.TIME, // Используем TIME для времени
+        type: DataTypes.TIME,
         allowNull: false,
       },
       endTime: {
-        type: DataTypes.TIME, // Используем TIME для времени
+        type: DataTypes.TIME,
         allowNull: false,
       },
       eventType: {
@@ -72,18 +90,18 @@ export const initBookPrivateEventModel = (sequelize: Sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          min: 1, // Минимальное значение
+          min: 1,
         },
       },
       additionalInformation: {
         type: DataTypes.TEXT,
-        allowNull: true, // Поле опционально
+        allowNull: true,
       },
     },
     {
       sequelize,
-      modelName: 'BookPrivateEvent',
-      tableName: 'book_private_event',
+      modelName: "InquirePrivateEvent",
+      tableName: "inquire_private_event",
     }
   );
 };

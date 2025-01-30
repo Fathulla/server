@@ -1,23 +1,46 @@
-import { DataTypes, Model, Sequelize } from 'sequelize';
+import { DataTypes, Model, Optional, Sequelize } from "sequelize";
 
-export class BookKidsEvent extends Model {
+interface BookPrivateEventAttributes {
+  id: number;
+  firstName: string;
+  email: string;
+  phoneNumber: string;
+  peopleNumber: number;
+  privateEventId: number;
+}
+
+export interface BookPrivateEventCreationAttributes
+  extends Optional<BookPrivateEventAttributes, "id"> {}
+
+export class BookPrivateEvent extends Model<
+  BookPrivateEventAttributes,
+  BookPrivateEventCreationAttributes
+> {
   public id!: number;
   public firstName!: string;
   public email!: string;
   public phoneNumber!: string;
   public peopleNumber!: number;
+  public privateEventId!: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-export const initBookKidsEventModel = (sequelize: Sequelize) => {
-  BookKidsEvent.init(
+export const initBookPrivateEventModel = (sequelize: Sequelize) => {
+  BookPrivateEvent.init(
     {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
+      },
+      privateEventId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notEmpty: { msg: "Private Event Id cannot be empty" },
+        },
       },
       firstName: {
         type: DataTypes.STRING,
@@ -51,8 +74,8 @@ export const initBookKidsEventModel = (sequelize: Sequelize) => {
     },
     {
       sequelize,
-      modelName: 'BookKidsEvent',
-      tableName: 'book_kids_event',
+      modelName: "BookPrivateEvent",
+      tableName: "book_private_event",
     }
   );
 };

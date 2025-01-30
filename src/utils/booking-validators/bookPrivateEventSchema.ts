@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const bookPrivateEventsSchema = Joi.object({
+export const InquirePrivateEventsSchema = Joi.object({
   firstName: Joi.string().min(1).required(),
   lastName: Joi.string().min(1).required(),
   email: Joi.string().email().required(),
